@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("toContainText test", async ({ page }) => {
+test("toContainText test", { tag: "@githubactions" }, async ({ page }) => {
   await page.goto("https://tredgate.com/pmtool");
   await page.locator("#username").fill("playwright_jaro24");
   await page.locator("#password").fill("Playwright!2024");
@@ -16,7 +16,7 @@ test("toContainText test", async ({ page }) => {
   await expect(pageHeader).toContainText("Vítej v testovací aplikaci");
 });
 
-test("toHaveText test", async ({ page }) => {
+test("toHaveText test", { tag: "@githubactions" }, async ({ page }) => {
   await page.goto("https://tredgate.com/pmtool");
   await page.locator("#username").fill("playwright_jaro24");
   await page.locator("#password").fill("Playwright!2024");
@@ -42,7 +42,7 @@ test("toHavePmtool", async ({ page }) => {
 
 test("expect.soft test (měkká kontrola)", async ({ page }) => {
   await page.goto("https://tredgate.com/pmtool");
-  await expect(page.locator(".form-title")).toHaveText("Login");
+  await expect.soft(page.locator(".form-title")).toHaveText("Login PMTOOL");
   await page.locator("#username").fill("playwright_jaro24");
   await page.locator("#password").fill("Playwright!2024");
   await page.locator('button[type="submit"]').click();
@@ -55,3 +55,19 @@ test("Negativní test: prvek není vidět", async ({ page }) => {
   // ! Pozor na negativní, vždycky kontrulejte až když máte jistotu, že je aplikace načtená
   await expect(page.locator(".alert")).not.toBeVisible(); // ? Negativní test: varovná zpráva není viditelná
 });
+
+/*
+Cvičení - testy na nevyplněná pole (⌛10:00):
+Vytvořte nový testovací soubor ve složce exercise: pmtool-empty-fields-tests.spec.ts
+Vytvoř nový test:
+Otevře PMTool
+Stiskne tlačítko login bez vyplnění údajů
+Zkontroluje, že existují chybové hlášky u inputů
+Username error selector: #username-error
+Heslo chyba selector: #password-error
+Zkontroluje text chyb: This field is required!
+Vytvoř další test:
+Po otevření PMToolu nejsou vidět chybové hlášky pro pole
+Spusťte test
+
+*/

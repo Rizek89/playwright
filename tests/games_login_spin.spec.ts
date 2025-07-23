@@ -33,11 +33,4 @@ test("Login na casino.ifortuna.cz", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "Tech4Bet ikona žetonu" })
   ).toBeVisible();
-
-  // ----------- MEH -----------
-
-  // Jdu přímo na stránku Tech4Bet
-  await page.goto("https://casino.ifortuna.cz/vyrobci/tech4bet");
-
-  await.page.locator('.kit-btn.kit-btn-primary.kit-btn-sm.game-play-button').first().click();
 });
